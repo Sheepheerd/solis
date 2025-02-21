@@ -9,6 +9,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    agenix.url = "github:ryantm/agenix";
     nixvim = {
       # url = "github:nix-community/nixvim";
       # If you are not running an unstable channel of nixpkgs, select the corresponding branch of nixvim.
@@ -18,7 +19,8 @@
     };
   };
 
-  outputs = { self, nixpkgs, unstable, home-manager, nixvim, ... }@inputs:
+  outputs =
+    { self, nixpkgs, unstable, home-manager, nixvim, agenix, ... }@inputs:
     let
       inherit (self) outputs;
 
@@ -40,6 +42,9 @@
           modules = [
             ./home-manager/server/home.nix # Base server config
             {
+              environment.systemPackages =
+                [ agenix.packages.x86_64-linux.default ];
+
               home = {
                 username = "sheep";
                 homeDirectory = "/home/sheep";
