@@ -1,12 +1,11 @@
 {
 
-  fileSystems."/mnt/games" = {
-    device = "/dev/disk/by-uuid/6cbcf132-63ad-4451-acd5-5a85291d6a41";
-    fsType = "ext4";
-    options = [ "nofail" ];
+  fileSystems."/export/hdd" = {
+    device = "/mnt/hdd";
+    options = [ "bind" ];
 
   };
-  fileSystems."/mnt/movies" = {
+  fileSystems."/export/sdd" = {
     device = "10.147.17.9:/hdd/Plex/media";
     fsType = "nfs";
 

@@ -38,7 +38,7 @@
           pkgs =
             nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
           modules = [
-            ./home-manager/desktop/home.nix # Base desktop config
+            ./home-manager/server/home.nix # Base server config
             {
               home = {
                 username = "sheep";

@@ -1,11 +1,10 @@
-{ config, lib, pkgs, unstable, inputs, outputs, ... }:
+{ config, lib, pkgs, inputs, outputs, ... }:
 
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    inputs.spicetify-nix.nixosModules.default
-    ../../modules/desktop/default.nix
+    ../../modules/server/default.nix
   ];
 
   environment.systemPackages = with pkgs;
@@ -28,4 +27,3 @@
   system.stateVersion = "24.11"; # Did you read the comment?
 
 }
-

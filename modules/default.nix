@@ -1,1 +1,3 @@
-{ pkgs, inputs, ... }: { imports = [ ./server/default.nix ./dev/default.nix ]; }
+{ pkgs, inputs, ... }: {
+  imports = [ ./server/default.nix ./dev/default.nix ./containers/default.nix ];
+}

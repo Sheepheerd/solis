@@ -1,1 +1,1 @@
-{ pkgs, inputs, ... }: { imports = [ ./system/default.nix ]; }
+{ pkgs, inputs, ... }: { imports = [ ./config ]; }
