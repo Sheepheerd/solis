@@ -1,0 +1,2 @@
+# solis
+Home Server
