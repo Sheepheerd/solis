@@ -26,11 +26,7 @@ in {
       enable = true;
       userName = "Sheepheerd";
       userEmail = "130428152+Sheepheerd@users.noreply.github.com";
-      extraConfig = {
-        credential.helper = "${
-            pkgs.git.override { withLibsecret = true; }
-          }/bin/git-credential-libsecret";
-      };
+      extraConfig = { credential.helper = "oauth"; };
     };
 
     nixvim = {
