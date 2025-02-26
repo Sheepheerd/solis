@@ -26,7 +26,7 @@ in {
       enable = true;
       userName = "Sheepheerd";
       userEmail = "130428152+Sheepheerd@users.noreply.github.com";
-      extraConfig = { credential.helper = "cache"; };
+      extraConfig = { credential.helper = "oauth"; };
     };
 
     nixvim = {
