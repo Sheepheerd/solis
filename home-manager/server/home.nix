@@ -36,13 +36,11 @@ in {
     homeDirectory = "/home/sheep";
   };
 
-  # Add stuff for your user as you see fit:
-  # programs.neovim.enable = true;
   fonts.fontconfig.enable = true;
-  home.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.caskaydia-cove
-  ];
+  # home.packages = with pkgs; [
+  #   nerd-fonts.jetbrains-mono
+  #   nerd-fonts.caskaydia-cove
+  # ];
 
   programs.home-manager.enable = true;
   programs.git = {
@@ -50,7 +48,9 @@ in {
     enable = true;
     userName = "Sheepheerd";
     userEmail = "130428152+Sheepheerd@users.noreply.github.com";
+
   };
+  programs.git-credential-oauth.enable = true;
   systemd.user.startServices = "sd-switch";
   # Neovim
   programs.nixvim = {
