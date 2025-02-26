@@ -48,12 +48,11 @@ in {
     enable = true;
     userName = "Sheepheerd";
     userEmail = "130428152+Sheepheerd@users.noreply.github.com";
-    # extraConfig.credential = {
-    #   helper = "manager";
-    #   "https://github.com".username = "Sheepheerd";
-    #   credentialStore = "cache";
-    # };
-
+    extraConfig = {
+      credential.helper = "${
+          pkgs.git.override { withLibsecret = true; }
+        }/bin/git-credential-libsecret";
+    };
   };
   systemd.user.startServices = "sd-switch";
   # Neovim
