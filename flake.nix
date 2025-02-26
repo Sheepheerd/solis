@@ -19,8 +19,7 @@
     };
   };
 
-  outputs =
-    { self, nixpkgs, home-manager, nixvim, agenix, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nixvim, agenix, ... }@inputs:
     let
       inherit (self) outputs;
 
@@ -31,7 +30,11 @@
       nixosConfigurations = {
         solis = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
-          modules = [ ./hosts/server/configuration.nix ];
+          modules = [
+
+            agenix.nixosModules.default
+            ./hosts/server/configuration.nix
+          ];
         };
       };
 
@@ -43,7 +46,7 @@
             ./home-manager/server/home.nix # Base server config
             {
               #environment.systemPackages =
-                #[ agenix.packages.x86_64-linux.default ];
+              #[ agenix.packages.x86_64-linux.default ];
 
               home = {
                 username = "sheep";

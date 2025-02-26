@@ -1,6 +1,9 @@
-{ agenix, ... }: {
-  imports = [ agenix.nixosModules.default ];
-  environment.systemPackages = [ agenix.packages.x86_64-linux.default ];
-  #age.secrets.immich.file = ./immich.env;
+{ inputs, ... }: {
+  environment.systemPackages = [ inputs.agenix.packages.x86_64-linux.default ];
 
+  age.secrets."immich.env" = {
+    file = ./env/immich.age;
+    owner = "sheep";
+    group = "users";
+  };
 }

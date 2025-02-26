@@ -31,8 +31,8 @@
       "VIEW_DISTANCE" = "15";
     };
     volumes = [
-      "/home/sheep/temp/minecraft/data/:/data:rw"
-      "/home/sheep/temp/minecraft/data/plugins:/plugins:rw"
+      "/mnt/one-t-ssd/minecraft/data/:/data:rw"
+      "/mnt/one-t-ssd/minecraft/data/plugins:/plugins:rw"
     ];
     ports = [ "100.113.25.38:25565:25565/tcp" ];
     log-driver = "journald";
