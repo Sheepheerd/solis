@@ -34,7 +34,7 @@
       "/home/sheep/temp/minecraft/data/:/data:rw"
       "/home/sheep/temp/minecraft/data/plugins:/plugins:rw"
     ];
-    ports = [ "10.147.17.9:25565:25565/tcp" ];
+    ports = [ "100.113.25.38:25565:25565/tcp" ];
     log-driver = "journald";
     extraOptions = [ "--network-alias=mc" "--network=minecraft-hr_default" ];
   };

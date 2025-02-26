@@ -9,27 +9,7 @@ in {
 
   imports = [ nixvim.homeManagerModules.nixvim ../shared/default.nix ];
 
-  nixpkgs = {
-    # You can add overlays here
-    # overlays = [
-    #   # Add overlays your own flake exports (from overlays and pkgs dir):
-    #   outputs.overlays.additions
-    #   outputs.overlays.modifications
-    #   outputs.overlays.unstable-packages
-    #
-    #   # You can also add overlays exported from other flakes:
-    #   # neovim-nightly-overlay.overlays.default
-    #
-    #   # Or define it inline, for example:
-    #   # (final: prev: {
-    #   #   hi = final.hello.overrideAttrs (oldAttrs: {
-    #   #     patches = [ ./change-hello-to-hi.patch ];
-    #   #   });
-    #   # })
-    # ];
-    # Configure your nixpkgs instance
-    config = { allowUnfree = true; };
-  };
+  nixpkgs = { config = { allowUnfree = true; }; };
 
   home = {
     username = "sheep";
@@ -37,32 +17,31 @@ in {
   };
 
   fonts.fontconfig.enable = true;
-  # home.packages = with pkgs; [
-  #   nerd-fonts.jetbrains-mono
-  #   nerd-fonts.caskaydia-cove
-  # ];
 
-  programs.home-manager.enable = true;
-  programs.git = {
+  programs = {
+    home-manager.enable = true;
 
-    enable = true;
-    userName = "Sheepheerd";
-    userEmail = "130428152+Sheepheerd@users.noreply.github.com";
-    extraConfig = {
-      credential.helper = "${
-          pkgs.git.override { withLibsecret = true; }
-        }/bin/git-credential-libsecret";
+    git = {
+
+      enable = true;
+      userName = "Sheepheerd";
+      userEmail = "130428152+Sheepheerd@users.noreply.github.com";
+      extraConfig = {
+        credential.helper = "${
+            pkgs.git.override { withLibsecret = true; }
+          }/bin/git-credential-libsecret";
+      };
+    };
+
+    nixvim = {
+      enable = true;
+      defaultEditor = true;
+      viAlias = true;
+      vimAlias = true;
+
+      luaLoader.enable = true;
     };
   };
   systemd.user.startServices = "sd-switch";
-  # Neovim
-  programs.nixvim = {
-    enable = true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-
-    luaLoader.enable = true;
-  };
 
 }

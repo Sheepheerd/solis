@@ -35,29 +35,18 @@
   boot.initrd.systemd.enable = true;
   boot.consoleLogLevel = 3;
 
-  # Enable Bluetooth
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = false;
-
-  environment.systemPackages = with pkgs; [ overskride ];
-
-  # Display manager
-  # services.displayManager.enable = true;
-  # services.xserver.displayManager.gdm.enable = true;
-  # services.xserver.displayManager.gdm.wayland = true;
-  # xdg.portal.enable = true;
-  # xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
-
   # Firewall
   networking.firewall.enable = true;
 
   # Fonts
-  fonts.packages = with pkgs; [
-    jetbrains-mono
-    nerd-font-patcher
-    noto-fonts-color-emoji
-  ];
-
+  fonts = {
+    packages = with pkgs; [
+      jetbrains-mono
+      nerd-font-patcher
+      noto-fonts-color-emoji
+    ];
+    fontDir.enable = true;
+  };
   # Kernal
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -93,6 +82,7 @@
     };
     power-profiles-daemon.enable = true;
 
+    tailscale.enable = true;
   };
 
   programs.dconf.enable = true;

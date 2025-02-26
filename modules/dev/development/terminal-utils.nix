@@ -23,5 +23,6 @@
     bat
     mdcat
     zsh-nix-shell
+    xclip
   ];
 }
