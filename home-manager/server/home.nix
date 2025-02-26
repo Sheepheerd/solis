@@ -45,8 +45,12 @@ in {
   ];
 
   programs.home-manager.enable = true;
-  programs.git.enable = true;
+  programs.git = {
 
+    enable = true;
+    userName = "Sheepheerd";
+    userEmail = "130428152+Sheepheerd@users.noreply.github.com";
+  };
   systemd.user.startServices = "sd-switch";
   # Neovim
   programs.nixvim = {

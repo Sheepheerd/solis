@@ -1,1 +1,2 @@
-{ pkgs, inputs, ... }: { imports = [ ./config ./secrets.nix ]; }
+{ pkgs, inputs, ... }: { imports = [ ./config.nix #./secrets.nix 
+]; }

@@ -79,7 +79,7 @@ in {
 
     '';
   };
-
+  programs.zoxide.enable = true;
   programs.zsh = {
     enable = true;
     # enableCompletion = true;
@@ -112,6 +112,7 @@ in {
         "sudo nixos-rebuild switch --flake ~/github/dotfiles/nixos#deathstar";
       update-ns =
         "sudo nixos-rebuild switch --flake ~/github/dotfiles/nixos#novastar";
+      update-ss = "sudo nixos-rebuild switch --flake ~/github/solis#solis";
     };
 
     oh-my-zsh = {

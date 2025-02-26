@@ -22,8 +22,8 @@
     gvfs
 
     qemu
-    docker-compose
-    docker-credential-helpers
+    # docker-compose
+    # docker-credential-helpers
 
   ];
 
@@ -80,7 +80,10 @@
     };
   };
   services = {
-
+    openssh = {
+      enable = true;
+      settings.PasswordAuthentication = false;
+    };
     fwupd.enable = true;
     zerotierone.enable = true;
     avahi = {
@@ -100,7 +103,7 @@
   time.timeZone = "America/New_York";
 
   # USB Automounting
-  services.gvfs.enable = true;
+  #services.gvfs.enable = true;
   # services.udisks2.enable = true;
   # services.devmon.enable = true;
 
@@ -117,6 +120,7 @@
   # };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  programs.zsh.enable = true;
   users.users.sheep = {
     isNormalUser = true;
     description = "Mr. Big Steppa";
@@ -130,27 +134,28 @@
   # virtualisation.containerd.enable = true;
 
   # Enable Docker
-  virtualisation = {
-    docker = {
-      enable = true;
-      rootless = {
-        enable = true;
-        setSocketVariable = true;
-      };
-    };
-  };
+  # virtualisation = {
+  #   docker = {
+  #     enable = true;
+  #     rootless = {
+  #       enable = true;
+  #       setSocketVariable = true;
+  #     };
+  #   };
+  # };
+
   users.extraGroups.docker.members = [ "sheep" ];
 
   # Enable Podman
-  # virtualisation = {
-  #   podman = {
-  #     enable = true;
-  #
-  #     # Create a `docker` alias for podman, to use it as a drop-in replacement
-  #     dockerCompat = true;
-  #
-  #     # Required for containers under podman-compose to be able to talk to each other.
-  #     defaultNetwork.settings.dns_enabled = true;
-  #   };
-  # };
+  virtualisation = {
+    podman = {
+      enable = true;
+
+      # Create a `docker` alias for podman, to use it as a drop-in replacement
+      dockerCompat = true;
+
+      # Required for containers under podman-compose to be able to talk to each other.
+      defaultNetwork.settings.dns_enabled = true;
+    };
+  };
 }

@@ -2,7 +2,7 @@
   description = "Solis Server";
 
   inputs = {
-    # unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    #unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -20,7 +20,7 @@
   };
 
   outputs =
-    { self, nixpkgs, unstable, home-manager, nixvim, agenix, ... }@inputs:
+    { self, nixpkgs, home-manager, nixvim, agenix, ... }@inputs:
     let
       inherit (self) outputs;
 
@@ -42,8 +42,8 @@
           modules = [
             ./home-manager/server/home.nix # Base server config
             {
-              environment.systemPackages =
-                [ agenix.packages.x86_64-linux.default ];
+              #environment.systemPackages =
+                #[ agenix.packages.x86_64-linux.default ];
 
               home = {
                 username = "sheep";
