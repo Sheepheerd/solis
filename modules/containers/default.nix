@@ -1,5 +1,5 @@
 { pkgs, lib, ... }:
 
 {
-  imports = [ ./minecraft.nix ./jellyfin.nix ./immich.nix ];
+  imports = [ ./minecraft.nix ./jellyfin.nix ./immich.nix ./gitea.nix ];
 }
