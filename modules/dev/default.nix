@@ -1,1 +1,1 @@
-{ pkgs, inputs, ... }: { imports = [ ./development/default.nix ]; }
+{ pkgs, inputs, ... }: { imports = [ ./dev.nix ]; }
