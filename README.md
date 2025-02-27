@@ -6,14 +6,7 @@
 
 ## 🌟 Overview
 
-**Solis** is a project designed to harness the power of the sun—symbolizing clarity, structure, and innovation.
-
-## 📂 Structure
-
-- `icon/solis.png` – The project’s emblem.
-- `docs/` – Documentation and guides.
-- `src/` – Core functionality.
-- `config/` – Configuration files.
+**Solis**, the central star.
 
 ## 🚀 Getting Started
 
