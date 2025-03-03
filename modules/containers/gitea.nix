@@ -35,7 +35,7 @@
       "/etc/localtime:/etc/localtime:ro"
       "/mnt/one-t-ssd/gitea/data:/data:rw"
     ];
-    ports = [ "100.113.25.38:3000:3000/tcp" "100.113.25.38:222:22/tcp" ];
+    ports = [ "100.113.25.38:3020:3000/tcp" "100.113.25.38:222:22/tcp" ];
     dependsOn = [ "gitea-pg" ];
     log-driver = "journald";
     extraOptions = [ "--network-alias=server" "--network=gitea_gitea" ];

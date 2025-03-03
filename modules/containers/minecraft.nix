@@ -34,7 +34,7 @@
       "/mnt/one-t-ssd/minecraft/data/:/data:rw"
       "/mnt/one-t-ssd/minecraft/data/plugins:/plugins:rw"
     ];
-    ports = [ "100.113.25.38:25565:25565/tcp" ];
+    ports = [ "10.147.17.9:25565:25565/tcp" ];
     log-driver = "journald";
     extraOptions = [ "--network-alias=mc" "--network=minecraft-hr_default" ];
   };
