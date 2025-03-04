@@ -6,9 +6,9 @@
     owner = "sheep";
     group = "users";
   };
-  age.secrets."homepage.env" = {
-    file = ./env/homepage.age;
-    owner = "sheep";
-    group = "users";
-  };
+  # age.secrets."homepage.env" = {
+  #   file = ./env/homepage.age;
+  #   owner = "sheep";
+  #   group = "users";
+  # };
 }

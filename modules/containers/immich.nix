@@ -22,22 +22,14 @@
   # Containers
   virtualisation.oci-containers.containers."immich_machine_learning" = {
     image = "ghcr.io/immich-app/immich-machine-learning:release";
-    environmentFiles = [
-      "/run/agenix/immich.env"
-    ];
-    volumes = [
-      "immich_model-cache:/cache:rw"
-    ];
+    environmentFiles = [ "/run/agenix/immich.env" ];
+    volumes = [ "immich_model-cache:/cache:rw" ];
     log-driver = "journald";
-    extraOptions = [
-      "--network-alias=immich-machine-learning"
-      "--network=immich_default"
-    ];
+    extraOptions =
+      [ "--network-alias=immich-machine-learning" "--network=immich_default" ];
   };
   systemd.services."podman-immich_machine_learning" = {
-    serviceConfig = {
-      Restart = lib.mkOverride 90 "always";
-    };
+    serviceConfig = { Restart = lib.mkOverride 90 "always"; };
     after = [
       "podman-network-immich_default.service"
       "podman-volume-immich_model-cache.service"
@@ -46,31 +38,34 @@
       "podman-network-immich_default.service"
       "podman-volume-immich_model-cache.service"
     ];
-    partOf = [
-      "podman-compose-immich-root.target"
-    ];
-    wantedBy = [
-      "podman-compose-immich-root.target"
-    ];
+    partOf = [ "podman-compose-immich-root.target" ];
+    wantedBy = [ "podman-compose-immich-root.target" ];
   };
   virtualisation.oci-containers.containers."immich_postgres" = {
-    image = "docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0";
-    environment = {
-      "POSTGRES_DB" = "immich";
-      "POSTGRES_INITDB_ARGS" = "--data-checksums";
-      "POSTGRES_PASSWORD" = "AqITyvakYBRnkY";
-      "POSTGRES_USER" = "postgres";
-    };
-    environmentFiles = [
-      "/run/agenix/immich.env"
+    image =
+      "docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0";
+    environmentFiles = [ "/run/agenix/immich.env" ];
+    volumes =
+      [ "/mnt/one-t-ssd/immich-app/data/postgres:/var/lib/postgresql/data:rw" ];
+    cmd = [
+      "postgres"
+      "-c"
+      "shared_preload_libraries=vectors.so"
+      "-c"
+      ''search_path="$user", public, vectors''
+      "-c"
+      "logging_collector=on"
+      "-c"
+      "max_wal_size=2GB"
+      "-c"
+      "shared_buffers=512MB"
+      "-c"
+      "wal_compression=on"
     ];
-    volumes = [
-      "/mnt/one-t-ssd/immich-app/data/postgres:/var/lib/postgresql/data:rw"
-    ];
-    cmd = [ "postgres" "-c" "shared_preload_libraries=vectors.so" "-c" "search_path=\"$user\", public, vectors" "-c" "logging_collector=on" "-c" "max_wal_size=2GB" "-c" "shared_buffers=512MB" "-c" "wal_compression=on" ];
     log-driver = "journald";
     extraOptions = [
-      "--health-cmd=pg_isready --dbname=\"\${POSTGRES_DB}\" --username=\"\${POSTGRES_USER}\" || exit 1; Chksum=\"$(psql --dbname=\"\${POSTGRES_DB}\" --username=\"\${POSTGRES_USER}\" --tuples-only --no-align --command='SELECT COALESCE(SUM(checksum_failures), 0) FROM pg_stat_database')\"; echo \"checksum failure count is $Chksum\"; [ \"$Chksum\" = '0' ] || exit 1"
+      ''
+        --health-cmd=pg_isready --dbname="''${POSTGRES_DB}" --username="''${POSTGRES_USER}" || exit 1; Chksum="$(psql --dbname="''${POSTGRES_DB}" --username="''${POSTGRES_USER}" --tuples-only --no-align --command='SELECT COALESCE(SUM(checksum_failures), 0) FROM pg_stat_database')"; echo "checksum failure count is $Chksum"; [ "$Chksum" = '0' ] || exit 1''
       "--health-interval=5m0s"
       "--health-start-period=5m0s"
       "--health-startup-interval=30s"
@@ -79,27 +74,16 @@
     ];
   };
   systemd.services."podman-immich_postgres" = {
-    serviceConfig = {
-      Restart = lib.mkOverride 90 "always";
-    };
-    after = [
-      "podman-network-immich_default.service"
-    ];
-    requires = [
-      "podman-network-immich_default.service"
-    ];
-    partOf = [
-      "podman-compose-immich-root.target"
-    ];
-    wantedBy = [
-      "podman-compose-immich-root.target"
-    ];
+    serviceConfig = { Restart = lib.mkOverride 90 "always"; };
+    after = [ "podman-network-immich_default.service" ];
+    requires = [ "podman-network-immich_default.service" ];
+    partOf = [ "podman-compose-immich-root.target" ];
+    wantedBy = [ "podman-compose-immich-root.target" ];
   };
   virtualisation.oci-containers.containers."immich_redis" = {
-    image = "docker.io/redis:6.2-alpine@sha256:905c4ee67b8e0aa955331960d2aa745781e6bd89afc44a8584bfd13bc890f0ae";
-    environmentFiles = [
-      "/run/agenix/immich.env"
-    ];
+    image =
+      "docker.io/redis:6.2-alpine@sha256:905c4ee67b8e0aa955331960d2aa745781e6bd89afc44a8584bfd13bc890f0ae";
+    environmentFiles = [ "/run/agenix/immich.env" ];
     log-driver = "journald";
     extraOptions = [
       "--health-cmd=redis-cli ping || exit 1"
@@ -108,60 +92,31 @@
     ];
   };
   systemd.services."podman-immich_redis" = {
-    serviceConfig = {
-      Restart = lib.mkOverride 90 "always";
-    };
-    after = [
-      "podman-network-immich_default.service"
-    ];
-    requires = [
-      "podman-network-immich_default.service"
-    ];
-    partOf = [
-      "podman-compose-immich-root.target"
-    ];
-    wantedBy = [
-      "podman-compose-immich-root.target"
-    ];
+    serviceConfig = { Restart = lib.mkOverride 90 "always"; };
+    after = [ "podman-network-immich_default.service" ];
+    requires = [ "podman-network-immich_default.service" ];
+    partOf = [ "podman-compose-immich-root.target" ];
+    wantedBy = [ "podman-compose-immich-root.target" ];
   };
   virtualisation.oci-containers.containers."immich_server" = {
     image = "ghcr.io/immich-app/immich-server:release";
-    environmentFiles = [
-      "/run/agenix/immich.env"
-    ];
+    environmentFiles = [ "/run/agenix/immich.env" ];
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
       "/mnt/one-t-ssd/immich-app/data/library:/usr/src/app/upload:rw"
     ];
-    ports = [
-      "100.113.25.38:2283:2283/tcp"
-    ];
-    dependsOn = [
-      "immich_postgres"
-      "immich_redis"
-    ];
+    ports = [ "100.113.25.38:2283:2283/tcp" ];
+    dependsOn = [ "immich_postgres" "immich_redis" ];
     log-driver = "journald";
-    extraOptions = [
-      "--network-alias=immich-server"
-      "--network=immich_default"
-    ];
+    extraOptions =
+      [ "--network-alias=immich-server" "--network=immich_default" ];
   };
   systemd.services."podman-immich_server" = {
-    serviceConfig = {
-      Restart = lib.mkOverride 90 "always";
-    };
-    after = [
-      "podman-network-immich_default.service"
-    ];
-    requires = [
-      "podman-network-immich_default.service"
-    ];
-    partOf = [
-      "podman-compose-immich-root.target"
-    ];
-    wantedBy = [
-      "podman-compose-immich-root.target"
-    ];
+    serviceConfig = { Restart = lib.mkOverride 90 "always"; };
+    after = [ "podman-network-immich_default.service" ];
+    requires = [ "podman-network-immich_default.service" ];
+    partOf = [ "podman-compose-immich-root.target" ];
+    wantedBy = [ "podman-compose-immich-root.target" ];
   };
 
   # Networks
@@ -197,9 +152,7 @@
   # When started, this will automatically create all resources and start
   # the containers. When stopped, this will teardown all resources.
   systemd.targets."podman-compose-immich-root" = {
-    unitConfig = {
-      Description = "Root target generated by compose2nix.";
-    };
+    unitConfig = { Description = "Root target generated by compose2nix."; };
     wantedBy = [ "multi-user.target" ];
   };
 }
