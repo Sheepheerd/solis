@@ -23,18 +23,21 @@
   virtualisation.oci-containers.containers."minecraft-hr-mc" = {
     image = "itzg/minecraft-server:latest";
     environment = {
+      "TYPE" = "MODRINTH";
+      "MODPACK_PLATFORM" = "MODRINTH";
+      "MODRINTH_MODPACK" =
+        "https://cdn.modrinth.com/data/yqI9DldQ/versions/8WxsDORG/hermitcraft-server.mrpack";
       "DIFFICULTY" = "hard";
       "EULA" = "TRUE";
       "FORCE_WORLD_COPY" = "true";
       "MAX_MEMORY" = "8G";
-      "TYPE" = "PAPER";
       "VIEW_DISTANCE" = "15";
     };
     volumes = [
-      "/mnt/one-t-ssd/minecraft/data/:/data:rw"
-      "/mnt/one-t-ssd/minecraft/data/plugins:/plugins:rw"
+      "/mnt/one-t-ssd/minecraft/worlds/helproom/data/:/data:rw"
+      "/mnt/one-t-ssd/minecraft/worlds/helproom/data/plugins:/plugins:rw"
     ];
-    ports = [ "10.147.17.9:25565:25565/tcp" ];
+    ports = [ "10.147.17.9:25565:25565/tcp" "10.147.17.9:24454:24454/udp" ];
     log-driver = "journald";
     extraOptions = [ "--network-alias=mc" "--network=minecraft-hr_default" ];
   };
