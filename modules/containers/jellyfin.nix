@@ -26,7 +26,8 @@
       "/mnt/two-t-hdd/jellyfin/cache:/cache:rw"
       "/mnt/two-t-hdd/jellyfin/config:/config:rw"
       "/mnt/two-t-hdd/jellyfin/media:/media:rw"
-      "/mnt/two-t-hdd/jellyfin/media2:/media2:ro"
+      # "/mnt/two-t-hdd/jellyfin/media2:/media2:ro"
+      "/mnt/one-t-ssd/lms/music/:/media2:ro"
       "/run/current-system/sw/share/X11/:/usr/local/share/fonts/custom:ro"
     ];
     ports = [ "100.113.25.38:8096:8096/tcp" ];
