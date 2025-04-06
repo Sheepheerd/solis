@@ -8,6 +8,7 @@
     ./gitea.nix
     ./joplin.nix
     ./linkwarden.nix
+    ./romm.nix
     # ./lms.nix
   ];
 }
