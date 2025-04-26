@@ -9,6 +9,8 @@
     ./joplin.nix
     ./linkwarden.nix
     ./romm.nix
+    ./radicale.nix
+    ./grocy.nix
     # ./lms.nix
   ];
 }

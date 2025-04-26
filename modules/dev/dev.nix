@@ -3,6 +3,7 @@
 {
   environment.systemPackages = with pkgs; [
     # Bare minimum
+    lemonade
     file
     git
     git-ignore
