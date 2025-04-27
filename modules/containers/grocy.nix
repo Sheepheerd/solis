@@ -25,7 +25,7 @@
     environment = {
       "PGID" = "1000";
       "PUID" = "1000";
-      "TZ" = "Etc/UTC";
+      "TZ" = "America/New_York";
     };
     volumes = [ "/mnt/one-t-ssd/grocy/config:/config:rw" ];
     ports = [ "100.113.25.38:9283:80/tcp" ];
