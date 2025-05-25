@@ -1,14 +1,10 @@
 # ☀️ Solis
 
-<p align="center">
-  <img src="icon/solis.png" alt="Solis Icon" width="200">
-</p>
+## 🌟 Solis
 
-## 🌟 Overview
+**Solis**
 
-**Solis**, the central star.
-
-## 🚀 Getting Started
+## Solis
 
 ```sh
 git clone https://github.com/yourusername/solis.git
